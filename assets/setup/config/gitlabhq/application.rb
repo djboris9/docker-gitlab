@@ -77,7 +77,7 @@ module Gitlab
     # 4) In ../gitlab-shell/config.yml: gitlab_url: "http://127.0.0.1/gitlab"
     # To update the path, run: sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
     #
-    config.relative_url_root = "{{GITLAB_PREFIX}}"
+    config.relative_url_root = "/{{GITLAB_PREFIX}}"
 
     config.middleware.use Rack::Attack
 
