@@ -63,7 +63,8 @@ if [ -d /home/git/data/config ]; then
 	cd /home/git/data/config
 	[ -f nginx/gitlab ] 	           && cp nginx/gitlab /etc/nginx/sites-available/gitlab
 	[ -f gitlab-shell/config.yml ] 	 && sudo -u git -H cp gitlab-shell/config.yml 	/home/git/gitlab-shell/config.yml
-	[ -f gitlabhq/gitlab.yml ] 			 && sudo -u git -H cp gitlabhq/gitlab.yml 			/home/git/gitlab/config/gitlab.yml
+	[ -f gitlabhq/gitlab.yml ] 			 && sudo -u git -H cp gitlabhq/gitlab.yml			/home/git/gitlab/config/gitlab.yml
+	[ -f gitlabhq/application.rb ] 			 && sudo -u git -H cp gitlabhq/application.rb			/home/git/gitlab/config/application.rb
 	[ -f gitlabhq/resque.yml ] 			 && sudo -u git -H cp gitlabhq/resque.yml 			/home/git/gitlab/config/resque.yml
 	[ -f gitlabhq/database.yml ] 		 && sudo -u git -H cp gitlabhq/database.yml 		/home/git/gitlab/config/database.yml
 	[ -f gitlabhq/sidekiq.yml ] 		 && sudo -u git -H cp gitlabhq/sidekiq.yml 		  /home/git/gitlab/config/sidekiq.yml
@@ -122,6 +123,7 @@ sudo -u git -H git config --global user.email "${GITLAB_EMAIL}"
 sudo -u git -H git config --global core.autocrlf input
 
 # configure server url
+sudo -u git -H sed 's/{{GITLAB_PREFIX}}/'${GITLAB_PREFIX}'/' -i /home/git/gitlab/config/application.rb
 sudo -u git -H sed 's/{{GITLAB_HOST}}/'${GITLAB_HOST}'/' -i /home/git/gitlab/config/gitlab.yml
 sudo -u git -H sed 's/{{GITLAB_PORT}}/'${GITLAB_PORT}'/' -i /home/git/gitlab/config/gitlab.yml
 sudo -u git -H sed 's/{{GITLAB_PREFIX}}/'${GITLAB_PREFIX}'/' -i /home/git/gitlab/config/gitlab.yml
